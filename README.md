@@ -1,5 +1,11 @@
 ## Overview
 
+## Security
+
+This provisioner does not secure jenkins itself. There are a few ways of doing that: you can allow jenkins to handle the user management or you can put jenkins behind a proxy server like apache.
+
+[Jenkins Security Setup](https://wiki.jenkins-ci.org/display/JENKINS/Standard+Security+Setup)
+
 ## Requirements
 
 * an ubuntu 14.04 vps with private/public key root access enabled

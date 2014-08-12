@@ -1,0 +1,5 @@
+---
+
+hashed_deploy_password: <hashed password> 
+hashed_root_password: <hashed password>
+sshd_port: 7634
