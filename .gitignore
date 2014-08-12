@@ -1,0 +1,8 @@
+# editor detrius
+*.swp
+
+# security
+hosts/*.hosts
+roles/security/vars/main.yml
+roles/security/files/keyfile
+

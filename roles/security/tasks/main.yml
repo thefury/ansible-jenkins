@@ -1,0 +1,37 @@
+---
+
+- name: change root password
+  user: name=root password={{hashed_root_password}}
+
+- name: ensure sudo group is present
+  group: name=sudo state=present
+
+- name: add deployment user
+  user: name=deploy state=present shell=/bin/bash password={{hashed_deploy_password}}
+
+- name: add deploy to sudoers
+  lineinfile: dest=/etc/sudoers regexp="deploy ALL" line="deploy ALL=(ALL) ALL" state=present
+
+- name: add deployment keys
+  authorized_key: user=deploy key="{{lookup('file','keyfile')}}"
+
+- name: unattended upgrades
+  apt: package=unattended-upgrades state=present
+
+- name: install fail2ban
+  apt: package=fail2ban state=present
+
+- name: setup ufw
+  command: ufw allow {{item}}
+  with_items:
+    - http
+    - https
+    - ssh
+    - 8080
+
+- name: enable ufw
+  shell: echo 'y' | ufw enable
+
+- name: disallow password based logins
+  template: dest=/etc/ssh/sshd_config src=sshd_config
+  notify: restart ssh

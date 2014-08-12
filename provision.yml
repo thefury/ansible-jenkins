@@ -1,0 +1,9 @@
+---
+
+- hosts: servers
+  remote_user: root
+  sudo: no
+  roles:
+    - security
+    - common
+    - jenkins
